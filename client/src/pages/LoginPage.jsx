@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom"
 function LoginPage(){
   return (
     <>
@@ -8,7 +9,11 @@ function LoginPage(){
           <input type="email" placeholder="your@email.com"/>
           <input type="passwd" placeholder="password" />
           <button className="primary">Login</button>
-          <button >Sign up</button>
+          <div className="text-right py-2 text-gray-700">
+            <p>Don't have an account yet? <Link className="underline text" to={"/signUp"} >Sign up</Link></p>
+            
+          </div>
+          
         </form>
       </div>
       
