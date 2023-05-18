@@ -1,16 +1,20 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from "axios"
+import axios from 'axios'
 
 function SignUpPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function userSignUp(e){
+  function userSignUp(e) {
     // send request to api
     e.preventDefault()
-    axios.get("http://localhost:4000/test")
+    axios.post('/signUp', {
+      name,
+      email,
+      password,
+    })
   }
 
   return (
@@ -20,15 +24,23 @@ function SignUpPage() {
           <h1 className="text-4xl text-center mb-4">Sign Up</h1>
           <form onSubmit={userSignUp} className="max-w-md mx-auto">
             <input
-              type="text"
+              type="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your full name"
             />
-            <input type="email" value={email}
-              onChange={(e) => setEmail(e.target.value)} placeholder="Your@email.com" />
-            <input type="passwd" value={password}
-              onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your@email.com"
+            />
+            <input
+              type="passwd"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
             <button className="primary">Sign Up</button>
             <div className="text-right py-2 text-gray-700">
               <p>
