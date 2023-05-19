@@ -1,6 +1,4 @@
-const { MongoUnexpectedServerResponseError } = require('mongodb')
 const mongoose = require('mongoose')
-
 const { Schema } = mongoose
 
 const UserSchema = new Schema({
@@ -11,4 +9,4 @@ const UserSchema = new Schema({
 
 const UserModel = mongoose.model('User', UserSchema)
 
-module.export = UserModel
+module.exports = UserModel
