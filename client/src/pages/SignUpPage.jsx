@@ -36,7 +36,7 @@ function SignUpPage() {
               placeholder="Your@email.com"
             />
             <input
-              type="passwd"
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
