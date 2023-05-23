@@ -7,14 +7,22 @@ function SignUpPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function userSignUp(e) {
+  // async func
+  async function userSignUp(e) {
     // send request to api
     e.preventDefault()
-    axios.post('/signUp', {
-      name,
-      email,
-      password,
-    })
+    try {
+      await axios.post('/signUp', {
+        name,
+        email,
+        password,
+      })
+      alert('Successfully signed up! Now you can sign in to your account')
+    } catch (e) {
+      alert(
+        'Registration failed. Please check your registration infomation and try again.'
+      )
+    }
   }
 
   return (
