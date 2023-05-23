@@ -6,6 +6,7 @@ const User = require('./models/users.js')
 const bcrypt = require('bcryptjs')
 // json web token
 const jwt = require('jsonwebtoken')
+const cookieParcer = require('cookie-parser')
 const app = express()
 require('dotenv').config()
 
@@ -13,6 +14,9 @@ const bcryptSalt = bcrypt.genSaltSync(10)
 const jwtSecret = process.env.JWT_SALT
 
 app.use(express.json())
+
+// to be able to read cookies
+app.use(cookieParcer())
 
 // connecting to client side
 app.use(
@@ -62,7 +66,7 @@ app.post('/login', async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err
-          res.cookie('token', token).json('pass')
+          res.cookie('token', token).json(userDoc)
         }
       )
     } else {
@@ -70,6 +74,22 @@ app.post('/login', async (req, res) => {
     }
   } else {
     res.json('not found')
+  }
+})
+
+// grap cookies token
+app.get('/profile', (req, res) => {
+  const { token } = req.cookies
+  if (token) {
+    //verify token
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err
+      const { name, email, _id } = await User.findById(userData.id)
+
+      res.json({ name, email, _id })
+    })
+  } else {
+    res.json(null)
   }
 })
 

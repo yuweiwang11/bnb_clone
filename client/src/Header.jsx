@@ -1,6 +1,9 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { UserContext } from './UserContext'
 
 function Header() {
+  const { user } = useContext(UserContext)
   return (
     <div>
       {/* bnb logo area */}
@@ -84,6 +87,8 @@ function Header() {
               />
             </svg>
           </div>
+          {/* grap user name on index page */}
+          {!!user && <div>{user.name}</div>}
         </Link>
       </header>
     </div>
