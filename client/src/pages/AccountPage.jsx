@@ -22,7 +22,7 @@ function AccountPage() {
     setUser(null)
     setRedirect('/')
   }
-  if (ready && !user) {
+  if (ready && !user && !redirect) {
     return <Navigate to={'/login'} />
   }
 
