@@ -52,7 +52,7 @@ function SignUpPage() {
             <button className="primary">Sign Up</button>
             <div className="text-right py-2 text-gray-700">
               <p>
-                Already a member?{' '}
+                Already a member?
                 <Link className="underline text" to={'/login'}>
                   Log in
                 </Link>
