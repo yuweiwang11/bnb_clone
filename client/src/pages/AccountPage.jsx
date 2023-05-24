@@ -1,6 +1,7 @@
 import { Navigate, Link, useParams } from 'react-router-dom'
 import { UserContext } from '../UserContext'
 import { useContext, useState } from 'react'
+import ListingsPage from './ListingsPage'
 import axios from 'axios'
 
 function AccountPage() {
@@ -65,6 +66,7 @@ function AccountPage() {
           </button>
         </div>
       )}
+      {subpage === 'listings' && <ListingsPage />}
     </div>
   )
 }
