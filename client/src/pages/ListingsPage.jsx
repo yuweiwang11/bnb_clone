@@ -1,7 +1,38 @@
 import { Link, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import Amenities from '../Amenities'
 
 function ListingsPage() {
   const { action } = useParams()
+
+  const [title, setTitle] = useState('')
+  const [address, setaddress] = useState('')
+  const [addedPhotots, setAddedPhotots] = useState([])
+  const [photoLink, setPhotoLink] = useState('')
+  const [description, setDescription] = useState('')
+  const [amenities, setAmenities] = useState([])
+  const [extraInfo, setExtraInfo] = useState('')
+  const [checkIn, setChckIn] = useState('')
+  const [checkOut, setCheckOut] = useState('')
+  const [maxGuests, setMaxGuests] = useState(1)
+
+  function inputHeader(text) {
+    return <h2 className="text-2xl mt-4 mb-1">{text}</h2>
+  }
+
+  function inputDescription(text) {
+    return <p className="text-gray-500 text-md mt-1">{text}</p>
+  }
+
+  function preInput(header, description) {
+    return (
+      <>
+        {inputHeader(header)}
+        {inputDescription(description)}
+      </>
+    )
+  }
+
   return (
     <div>
       {action !== 'new' && (
@@ -28,73 +59,98 @@ function ListingsPage() {
           </Link>
         </div>
       )}
+
       {action === 'new' && (
         <div>
           <form>
-            <h2 className="text-2xl mt-4 mb-1">Title</h2>
-            <input type="text" placeholder="title" />
+            {preInput('Titile', '')}
+            <input
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value)
+              }}
+              type="text"
+              placeholder="title"
+            />
 
-            <h2 className="text-2xl mt-4">Address</h2>
-            <input type="text" placeholder="address" />
+            {preInput('Address', '')}
+            <input
+              value={address}
+              onChange={(e) => {
+                setaddress(e.target.value)
+              }}
+              type="text"
+              placeholder="address"
+            />
 
-            <h2 className="text-2xl mt-4">Description</h2>
-            <textarea />
+            {preInput('Description', '')}
+            <textarea
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value)
+              }}
+            />
 
-            <h2 className="text-2xl mt-4">Amenities</h2>
-            <p className="text-gray-500 text-md mt-1">
-              What you have provided for the guests
-            </p>
-            <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-              <label className="border p-4 flex rounded-2xl gap-3 items-center">
-                <input type="checkbox" />
-                <span>WIFI</span>
-              </label>
-              <label className="border p-4 flex rounded-2xl gap-3 items-center">
-                <input type="checkbox" />
-                <span>Parking</span>
-              </label>
-              <label className="border p-4 flex rounded-2xl gap-3 items-center">
-                <input type="checkbox" />
-                <span>TV</span>
-              </label>
-              <label className="border p-4 flex rounded-2xl gap-3 items-center">
-                <input type="checkbox" />
-                <span>Air conditioning</span>
-              </label>
-              <label className="border p-4 flex rounded-2xl gap-3 items-center">
-                <input type="checkbox" />
-                <span>Hot water</span>
-              </label>
-              <label className="border p-4 flex rounded-2xl gap-3 items-center">
-                <input type="checkbox" />
-                <span>Essentials</span>
-              </label>
-            </div>
+            {preInput('Amenities', 'What you have provided for the guests')}
+            <Amenities selected={amenities} onChagne={setAmenities} />
 
-            <h2 className="text-2xl mt-4 mb-1">
-              Check-in/out time & Maximum guests{' '}
-            </h2>
+            {preInput('Check-in/out time & Maximum guests', '')}
+
             <div className="grid gap-2 sm:grid-cols-3">
               <div>
                 <h3 className="mt-2 mb-1">Check-in time</h3>
-                <input type="text" placeholder="14:00" />
+                <input
+                  value={checkIn}
+                  onChange={(e) => {
+                    setChckIn(e.target.value)
+                  }}
+                  type="text"
+                  placeholder="14:00"
+                />
               </div>
               <div>
                 <h3 className="mt-2 mb-1">Check-out time</h3>
-                <input type="text" placeholder="10:00" />
+                <input
+                  value={checkOut}
+                  onChange={(e) => {
+                    setCheckOut(e.target.value)
+                  }}
+                  type="text"
+                  placeholder="10:00"
+                />
               </div>
               <div>
                 <h3 className="mt-2 mb-1">Maximum guests</h3>
-                <input type="text" placeholder="3" />
+                <input
+                  value={maxGuests}
+                  onChange={(e) => {
+                    setMaxGuests(e.target.value)
+                  }}
+                  type="number"
+                  placeholder="3"
+                />
               </div>
             </div>
 
-            <h2 className="text-2xl mt-4 mb-1">Extra Info</h2>
-            <textarea placeholder="House rules, etc." />
+            {preInput('Extra Info', '')}
+            <textarea
+              value={extraInfo}
+              onChange={(e) => {
+                setExtraInfo(e.target.value)
+              }}
+              placeholder="House rules, etc."
+            />
 
-            <h2 className="text-2xl mt-4">Photos</h2>
+            {preInput('Photos', '')}
             <div className="flex gap-2">
-              <input type="text" placeholder={'Add photos using links'} />
+              <input
+                value={photoLink}
+                onChange={(e) => {
+                  setPhotoLink(e.target.value)
+                }}
+                type="text"
+                placeholder={'Add photos using links'}
+              />
               <button className="bg-gray-200 text-sm mt-2 mb-2 px-4 rounded-2xl">
                 Add Picture
               </button>
