@@ -42,6 +42,7 @@ function ListingsPage() {
     setAddedPhotots((prev) => {
       return [...prev, filename]
     })
+    setPhotoLink('')
   }
 
   return (
@@ -170,10 +171,18 @@ function ListingsPage() {
               </button>
             </div>
 
-            <div className="mt-2 grid grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
+            <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
               {addedPhotots.length > 0 &&
-                addedPhotots.map((link) => <div>{link}</div>)}
-              <button className="flex shrink-0 gap-1 justify-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600">
+                addedPhotots.map((link) => (
+                  <div key={addedPhotots.indexOf(link)}>
+                    <img
+                      className="rounded-2xl"
+                      src={'http://localhost:4000/uploads/' + link}
+                      alt="link"
+                    />
+                  </div>
+                ))}
+              <button className="flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

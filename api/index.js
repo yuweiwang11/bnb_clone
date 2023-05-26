@@ -19,6 +19,9 @@ app.use(express.json())
 // to be able to read cookies
 app.use(cookieParcer())
 
+// make photos link http://localhost:4000/uploads/photo1685072322691.jpg working
+app.use('/uploads', express.static(__dirname + '/uploads'))
+
 // connecting to client side
 app.use(
   cors({
@@ -104,7 +107,7 @@ app.post('/upload-by-link', async (req, res) => {
   const newName = 'photo' + Date.now() + '.jpg'
   await imageDownloader.image({
     url: link,
-    dest: __dirname + '/upload/' + newName,
+    dest: __dirname + '/uploads/' + newName,
   })
   res.json(newName)
 })
