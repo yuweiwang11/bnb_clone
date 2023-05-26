@@ -1,33 +1,61 @@
-function Amenities({ selected, onChange }) {
+import PropTypes from 'prop-types'
+export default function Amenities({ selected, onChange }) {
+  function handleCheckboxClick(e) {
+    const { checked, name } = e.target
+    if (checked) {
+      onChange([...selected, name])
+    } else {
+      onChange([...selected.filter((selectedName) => selectedName !== name)])
+    }
+  }
+
   return (
     <>
       <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <label className="border p-4 flex rounded-2xl gap-3 items-center">
-          <input type="checkbox" />
+          <input type="checkbox" name="wifi" onChange={handleCheckboxClick} />
           <span>WIFI</span>
         </label>
         <label className="border p-4 flex rounded-2xl gap-3 items-center">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="parking"
+            onChange={handleCheckboxClick}
+          />
           <span>Parking</span>
         </label>
         <label className="border p-4 flex rounded-2xl gap-3 items-center">
-          <input type="checkbox" />
+          <input type="checkbox" name="tv" onChange={handleCheckboxClick} />
           <span>TV</span>
         </label>
         <label className="border p-4 flex rounded-2xl gap-3 items-center">
-          <input type="checkbox" />
+          <input type="checkbox" name="aircon" onChange={handleCheckboxClick} />
           <span>Air conditioning</span>
         </label>
         <label className="border p-4 flex rounded-2xl gap-3 items-center">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="hotWater"
+            onChange={handleCheckboxClick}
+          />
           <span>Hot water</span>
         </label>
         <label className="border p-4 flex rounded-2xl gap-3 items-center">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="essentials"
+            onChange={handleCheckboxClick}
+          />
           <span>Essentials</span>
         </label>
       </div>
     </>
   )
 }
-export default Amenities
+
+// Amenities.propTypes = {
+//   selected: PropTypes.node,
+//   onChange: PropTypes.node,
+// }
+
+// export default Amenities

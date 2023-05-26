@@ -123,7 +123,7 @@ function ListingsPage() {
             />
 
             {preInput('Amenities', 'What you have provided for the guests')}
-            <Amenities selected={amenities} onChagne={setAmenities} />
+            <Amenities selected={amenities} onChange={setAmenities} />
 
             {preInput('Check-in/out time & Maximum guests', '')}
 
