@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import Amenities from '../Amenities'
+import axios from 'axios'
 
 function ListingsPage() {
   const { action } = useParams()
@@ -31,6 +32,16 @@ function ListingsPage() {
         {inputDescription(description)}
       </>
     )
+  }
+
+  async function addPhotoByLink(e) {
+    e.preventDefault()
+    const { data: filename } = await axios.post('/upload-by-link', {
+      link: photoLink,
+    })
+    setAddedPhotots((prev) => {
+      return [...prev, filename]
+    })
   }
 
   return (
@@ -151,12 +162,17 @@ function ListingsPage() {
                 type="text"
                 placeholder={'Add photos using links'}
               />
-              <button className="bg-gray-200 text-sm mt-2 mb-2 px-4 rounded-2xl">
+              <button
+                onClick={addPhotoByLink}
+                className="bg-gray-200 text-sm mt-2 mb-2 px-4 rounded-2xl"
+              >
                 Add Picture
               </button>
             </div>
 
             <div className="mt-2 grid grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
+              {addedPhotots.length > 0 &&
+                addedPhotots.map((link) => <div>{link}</div>)}
               <button className="flex shrink-0 gap-1 justify-center border bg-transparent rounded-2xl p-8 text-2xl text-gray-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

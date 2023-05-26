@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs')
 // json web token
 const jwt = require('jsonwebtoken')
 const cookieParcer = require('cookie-parser')
+const imageDownloader = require('image-downloader')
 const app = express()
 require('dotenv').config()
 
@@ -95,6 +96,17 @@ app.get('/profile', (req, res) => {
 
 app.post('/logout', (req, res) => {
   res.cookie('token', '').json(true)
+})
+
+app.post('/upload-by-link', async (req, res) => {
+  const { link } = req.body
+  // console.log(link)
+  const newName = 'photo' + Date.now() + '.jpg'
+  await imageDownloader.image({
+    url: link,
+    dest: __dirname + '/upload/' + newName,
+  })
+  res.json(newName)
 })
 
 app.listen(4000)
