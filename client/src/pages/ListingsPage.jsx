@@ -45,6 +45,25 @@ function ListingsPage() {
     setPhotoLink('')
   }
 
+  function uploadPhoto(e) {
+    // target: the input
+    const files = e.target.files
+    const data = new FormData()
+    for (let i = 0; i < files.length; i++) {
+      data.append('photos', files[i])
+    }
+    axios
+      .post('/upload', data, {
+        headers: { 'Content-type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        const { data: filenames } = response
+        setAddedPhotots((prev) => {
+          return [...prev, ...filenames]
+        })
+      })
+  }
+
   return (
     <div>
       {action !== 'new' && (
@@ -174,15 +193,21 @@ function ListingsPage() {
             <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
               {addedPhotots.length > 0 &&
                 addedPhotots.map((link) => (
-                  <div key={addedPhotots.indexOf(link)}>
+                  <div className="h-32 flex" key={addedPhotots.indexOf(link)}>
                     <img
-                      className="rounded-2xl"
+                      className="rounded-2xl w-full object-cover"
                       src={'http://localhost:4000/uploads/' + link}
                       alt="link"
                     />
                   </div>
                 ))}
-              <button className="flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
+              <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
+                <input
+                  type="file"
+                  multiple
+                  className="hidden"
+                  onChange={uploadPhoto}
+                />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -198,7 +223,7 @@ function ListingsPage() {
                   />
                 </svg>
                 Upload
-              </button>
+              </label>
             </div>
 
             <button className="primary my-4">Save</button>

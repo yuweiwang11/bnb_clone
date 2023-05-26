@@ -8,6 +8,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const cookieParcer = require('cookie-parser')
 const imageDownloader = require('image-downloader')
+const multer = require('multer')
+const fs = require('fs')
 const app = express()
 require('dotenv').config()
 
@@ -110,6 +112,20 @@ app.post('/upload-by-link', async (req, res) => {
     dest: __dirname + '/uploads/' + newName,
   })
   res.json(newName)
+})
+
+const photoMiddleware = multer({ dest: 'uploads/' })
+app.post('/upload', photoMiddleware.array('photos', 100), (req, res) => {
+  const uploadFiles = []
+  for (let i = 0; i < req.files.length; i++) {
+    const { path, originalname } = req.files[i]
+    const parts = originalname.split('.')
+    const ext = parts[parts.length - 1]
+    const newPath = path + '.' + ext
+    fs.renameSync(path, newPath)
+    uploadFiles.push(newPath.replace('uploads/', ''))
+  }
+  res.json(uploadFiles)
 })
 
 app.listen(4000)
