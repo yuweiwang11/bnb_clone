@@ -1,20 +1,22 @@
 import { useState } from 'react'
+import { Navigate, useParams } from 'react-router-dom'
 import Amenities from '../Amenities'
 import PhotoUploader from '../PhotoUploader'
 import axios from 'axios'
 import AccountNav from '../AccountNav'
 
 function ListingFormPage() {
+  const { id } = useParams()
   const [title, setTitle] = useState('')
   const [address, setaddress] = useState('')
   const [addedPhotots, setAddedPhotots] = useState([])
-
   const [description, setDescription] = useState('')
   const [amenities, setAmenities] = useState([])
   const [extraInfo, setExtraInfo] = useState('')
   const [checkIn, setChckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')
   const [maxGuests, setMaxGuests] = useState(1)
+  const [redirect, setRedirect] = useState(false)
 
   function inputHeader(text) {
     return <h2 className="text-2xl mt-4 mb-1">{text}</h2>
@@ -47,6 +49,11 @@ function ListingFormPage() {
       checkOut,
       maxGuests,
     })
+    setRedirect(true)
+  }
+
+  if (redirect) {
+    return <Navigate to={'/account/listings'} />
   }
 
   return (

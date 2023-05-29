@@ -1,13 +1,17 @@
 import { Link, useParams } from 'react-router-dom'
 import ListingFormPage from './ListingFormPage'
 import AccountNav from '../AccountNav'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function ListingsPage() {
-  // const [redirectToListing, setRedirectToListing] = useState(false)
-
-  // if (redirectToListing && !action) {
-  //   return <Navigate to={'account/listings'} />
-  // }
+  const [listings, setListings] = useState([])
+  useEffect(() => {
+    axios.get('/listings').then(({ data }) => {
+      console.log(data)
+      setListings(data)
+    })
+  }, [])
 
   return (
     <div>
@@ -35,7 +39,27 @@ function ListingsPage() {
           Add a new listing
         </Link>
       </div>
-      {/* {action === 'new' && <ListingFormPage />} */}
+
+      <div className="mt-4">
+        {listings.length > 0 &&
+          listings.map((listing) => (
+            <Link
+              to={'/account/listings/' + listing._id}
+              key={listing._id}
+              className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl"
+            >
+              <div className="w-32 h-32 bg-gray-200 grow shrink-0">
+                {listing.photos.length > 0 && (
+                  <img src={listing.photos[0]} alt={listing.title} />
+                )}
+              </div>
+              <div className="grow-0 shrink">
+                <h2 className="text-xl">{listing.title}</h2>
+                <p className="text-sm mt-2">{listing.description}</p>
+              </div>
+            </Link>
+          ))}
+      </div>
     </div>
   )
 }

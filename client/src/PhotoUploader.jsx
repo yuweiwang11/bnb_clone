@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
-function PhotoUploader({ addedPhotots, onChange }) {
+export default function PhotoUploader({ addedPhotots, onChange }) {
   const [photoLink, setPhotoLink] = useState('')
 
   async function addPhotoByLink(e) {
@@ -90,4 +91,9 @@ function PhotoUploader({ addedPhotots, onChange }) {
     </>
   )
 }
-export default PhotoUploader
+// export default PhotoUploader
+
+// PhotoUploader.propTypes = {
+//   addedPhotots: PropTypes.node,
+//   onChange: PropTypes.node,
+// }

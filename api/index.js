@@ -134,7 +134,7 @@ app.post('/listings', (req, res) => {
   const {
     title,
     address,
-    photos,
+    addedPhotos,
     description,
     perks,
     exteaInfo,
@@ -149,7 +149,7 @@ app.post('/listings', (req, res) => {
       owner: userData.id,
       title,
       address,
-      photos,
+      photos: addedPhotos,
       description,
       perks,
       exteaInfo,
@@ -160,4 +160,13 @@ app.post('/listings', (req, res) => {
     res.json(listingDoc)
   })
 })
+
+app.get('/listings', (req, res) => {
+  const { token } = req.cookies
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    const { id } = userData
+    res.json(await Listing.find({ owner: id }))
+  })
+})
+
 app.listen(4000)

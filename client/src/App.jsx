@@ -4,7 +4,7 @@ import LoginPage from './pages/LoginPage'
 import Layout from './Layout'
 import SignUpPage from './pages/SignUpPage'
 import { UserContextProvider } from './UserContext'
-import ProfilePage from './pages/AccountPage'
+import ProfilePage from './pages/ProfilePage'
 import ListingsPage from './pages/ListingsPage'
 import axios from 'axios'
 import ListingFormPage from './pages/ListingFormPage'
@@ -27,6 +27,7 @@ function App() {
             {/* <Route path="/account/:subpage?" element={<ProfilePage />} /> */}
             <Route path="/account/listings" element={<ListingsPage />} />
             <Route path="/account/listings/new" element={<ListingFormPage />} />
+            <Route path="/account/listings/:id" element={<ListingFormPage />} />
           </Route>
         </Routes>
       </UserContextProvider>
