@@ -1,4 +1,3 @@
-const { default: mongoose } = require('mongoose')
 const mongoose = require('mongoose')
 
 const listingSchema = new mongoose.Schema({

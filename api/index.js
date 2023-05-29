@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 // User model
 const User = require('./models/users.js')
+const Listing = require('./models/listing.js')
 const bcrypt = require('bcryptjs')
 // json web token
 const jwt = require('jsonwebtoken')
@@ -128,4 +129,35 @@ app.post('/upload', photoMiddleware.array('photos', 100), (req, res) => {
   res.json(uploadFiles)
 })
 
+app.post('/listings', (req, res) => {
+  const { token } = req.cookies
+  const {
+    title,
+    address,
+    photos,
+    description,
+    perks,
+    exteaInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+  } = req.body
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err
+    const listingDoc = await Listing.create({
+      owner: userData.id,
+      title,
+      address,
+      photos,
+      description,
+      perks,
+      exteaInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+    })
+    res.json(listingDoc)
+  })
+})
 app.listen(4000)

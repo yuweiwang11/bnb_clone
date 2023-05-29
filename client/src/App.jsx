@@ -4,8 +4,10 @@ import LoginPage from './pages/LoginPage'
 import Layout from './Layout'
 import SignUpPage from './pages/SignUpPage'
 import { UserContextProvider } from './UserContext'
-import AccountPage from './pages/AccountPage'
+import ProfilePage from './pages/AccountPage'
+import ListingsPage from './pages/ListingsPage'
 import axios from 'axios'
+import ListingFormPage from './pages/ListingFormPage'
 
 //connecting to api
 axios.defaults.baseURL = 'http://localhost:4000'
@@ -20,10 +22,11 @@ function App() {
             <Route path="/" element={<IndexPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signUp" element={<SignUpPage />} />
-            <Route path="/account" element={<AccountPage />} />
+            <Route path="/account" element={<ProfilePage />} />
             {/* subpage | ?optional */}
-            <Route path="/account/:subpage?" element={<AccountPage />} />
-            <Route path="/account/:subpage/:action" element={<AccountPage />} />
+            {/* <Route path="/account/:subpage?" element={<ProfilePage />} /> */}
+            <Route path="/account/listings" element={<ListingsPage />} />
+            <Route path="/account/listings/new" element={<ListingFormPage />} />
           </Route>
         </Routes>
       </UserContextProvider>
