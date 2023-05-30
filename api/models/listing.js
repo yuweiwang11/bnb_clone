@@ -6,7 +6,7 @@ const listingSchema = new mongoose.Schema({
   address: String,
   photos: [String],
   description: String,
-  perks: [String],
+  amenities: [String],
   exteaInfo: String,
   checkIn: Number,
   checkOut: Number,

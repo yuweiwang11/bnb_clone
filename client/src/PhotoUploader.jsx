@@ -54,7 +54,7 @@ export default function PhotoUploader({ addedPhotots, onChange }) {
       </div>
 
       <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
-        {addedPhotots.length > 0 &&
+        {addedPhotots?.length > 0 &&
           addedPhotots.map((link) => (
             <div className="h-32 flex" key={addedPhotots.indexOf(link)}>
               <img

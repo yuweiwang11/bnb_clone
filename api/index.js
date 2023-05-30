@@ -136,7 +136,7 @@ app.post('/listings', (req, res) => {
     address,
     addedPhotos,
     description,
-    perks,
+    amenities,
     exteaInfo,
     checkIn,
     checkOut,
@@ -151,7 +151,7 @@ app.post('/listings', (req, res) => {
       address,
       photos: addedPhotos,
       description,
-      perks,
+      amenities,
       exteaInfo,
       checkIn,
       checkOut,
@@ -167,6 +167,13 @@ app.get('/listings', (req, res) => {
     const { id } = userData
     res.json(await Listing.find({ owner: id }))
   })
+})
+
+app.get('/listings/:id', async (req, res) => {
+  // get id from json response
+  // res.json(req.params)
+  const { id } = req.params
+  res.json(await Listing.findById(id))
 })
 
 app.listen(4000)
