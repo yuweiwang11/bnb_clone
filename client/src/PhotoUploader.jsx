@@ -36,6 +36,10 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
         })
       })
   }
+
+  function removePhoto(filename) {
+    onChange([...addedPhotos.filter((photo) => photo !== filename)])
+  }
   return (
     <>
       <div className="flex gap-2">
@@ -58,12 +62,18 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
       <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
         {addedPhotos?.length > 0 &&
           addedPhotos.map((link) => (
-            <div className="h-32 flex" key={addedPhotos.indexOf(link)}>
+            <div className="h-32 flex relative" key={addedPhotos.indexOf(link)}>
               <img
                 className="rounded-2xl w-full object-cover"
                 src={'http://localhost:4000/uploads/' + link}
                 alt="link"
               />
+              <button
+                onClick={() => removePhoto(link)}
+                className="cursor-pointer absolute bottom-1 right-1 text-white bg-black bg-opacity-50 p-1 rounded-xl"
+              >
+                X
+              </button>
             </div>
           ))}
         <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
