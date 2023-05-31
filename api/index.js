@@ -176,4 +176,39 @@ app.get('/listings/:id', async (req, res) => {
   res.json(await Listing.findById(id))
 })
 
+app.put('/listings', async (req, res) => {
+  const { token } = req.cookies
+  const {
+    id,
+    title,
+    address,
+    addedPhotos,
+    description,
+    amenities,
+    exteaInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+  } = req.body
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err
+    const listingDoc = await Listing.findById(id)
+    if (userData.id === listingDoc.owner.toString()) {
+      listingDoc.set({
+        title,
+        address,
+        photos: addedPhotos,
+        description,
+        amenities,
+        exteaInfo,
+        checkIn,
+        checkOut,
+        maxGuests,
+      })
+      await listingDoc.save()
+      res.json('ok')
+    }
+  })
+})
+
 app.listen(4000)

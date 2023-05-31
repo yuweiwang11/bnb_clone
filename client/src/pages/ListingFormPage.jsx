@@ -55,9 +55,9 @@ function ListingFormPage() {
   }
 
   // use prevenDefault() on onSubmit to preven default function
-  async function addNewListing(e) {
+  async function saveListing(e) {
     e.preventDefault()
-    await axios.post('/listings', {
+    const listingData = {
       title,
       address,
       addedPhotots,
@@ -67,8 +67,19 @@ function ListingFormPage() {
       checkIn,
       checkOut,
       maxGuests,
-    })
-    setRedirect(true)
+    }
+    if (id) {
+      //update
+      await axios.put('/listings', {
+        id,
+        ...listingData,
+      })
+      setRedirect(true)
+    } else {
+      // new
+      await axios.post('/listings', listingData)
+      setRedirect(true)
+    }
   }
 
   if (redirect) {
@@ -78,7 +89,7 @@ function ListingFormPage() {
   return (
     <div>
       <AccountNav />
-      <form onSubmit={addNewListing}>
+      <form onSubmit={saveListing}>
         {preInput('Titile', '')}
         <input
           value={title}
