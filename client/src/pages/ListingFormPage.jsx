@@ -9,7 +9,7 @@ function ListingFormPage() {
   const { id } = useParams()
   const [title, setTitle] = useState('')
   const [address, setaddress] = useState('')
-  const [addedPhotots, setAddedPhotots] = useState([])
+  const [addedPhotos, setAddedPhotos] = useState([])
   const [description, setDescription] = useState('')
   const [amenities, setAmenities] = useState([])
   const [extraInfo, setExtraInfo] = useState('')
@@ -26,7 +26,7 @@ function ListingFormPage() {
         const { data } = response
         setTitle(data.title)
         setaddress(data.address)
-        setAddedPhotots(data.addedPhotots)
+        setAddedPhotos(data.photos)
         setDescription(data.description)
         setAmenities(data.amenities)
         setExtraInfo(data.extraInfo)
@@ -60,7 +60,7 @@ function ListingFormPage() {
     const listingData = {
       title,
       address,
-      addedPhotots,
+      addedPhotos,
       description,
       amenities,
       extraInfo,
@@ -169,7 +169,7 @@ function ListingFormPage() {
         />
 
         {preInput('Photos', '')}
-        <PhotoUploader addedPhotots={addedPhotots} onChange={setAddedPhotots} />
+        <PhotoUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
 
         <button className="primary my-4">Save</button>
       </form>

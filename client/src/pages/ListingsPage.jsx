@@ -47,9 +47,13 @@ function ListingsPage() {
               key={listing._id}
               className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl"
             >
-              <div className="w-32 h-32 bg-gray-200 grow shrink-0">
+              <div className="flex w-32 h-32 bg-gray-200 grow shrink-0">
                 {listing.photos.length > 0 && (
-                  <img src={listing.photos[0]} alt={listing.title} />
+                  <img
+                    className="object-cover"
+                    src={`http://localhost:4000/uploads/${listing.photos[0]}`}
+                    alt={listing.title}
+                  />
                 )}
               </div>
               <div className="grow-0 shrink">

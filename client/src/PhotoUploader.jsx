@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-export default function PhotoUploader({ addedPhotots, onChange }) {
+export default function PhotoUploader({ addedPhotos, onChange }) {
   const [photoLink, setPhotoLink] = useState('')
 
   async function addPhotoByLink(e) {
@@ -23,12 +23,14 @@ export default function PhotoUploader({ addedPhotots, onChange }) {
     for (let i = 0; i < files.length; i++) {
       data.append('photos', files[i])
     }
+    console.log(typeof data)
     axios
       .post('/upload', data, {
         headers: { 'Content-type': 'multipart/form-data' },
       })
       .then((response) => {
         const { data: filenames } = response
+
         onChange((prev) => {
           return [...prev, ...filenames]
         })
@@ -54,9 +56,9 @@ export default function PhotoUploader({ addedPhotots, onChange }) {
       </div>
 
       <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
-        {addedPhotots?.length > 0 &&
-          addedPhotots.map((link) => (
-            <div className="h-32 flex" key={addedPhotots.indexOf(link)}>
+        {addedPhotos?.length > 0 &&
+          addedPhotos.map((link) => (
+            <div className="h-32 flex" key={addedPhotos.indexOf(link)}>
               <img
                 className="rounded-2xl w-full object-cover"
                 src={'http://localhost:4000/uploads/' + link}
@@ -94,6 +96,6 @@ export default function PhotoUploader({ addedPhotots, onChange }) {
 // export default PhotoUploader
 
 // PhotoUploader.propTypes = {
-//   addedPhotots: PropTypes.node,
+//   addedPhotos: PropTypes.node,
 //   onChange: PropTypes.node,
 // }
