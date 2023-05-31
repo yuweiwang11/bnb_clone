@@ -211,4 +211,8 @@ app.put('/listings', async (req, res) => {
   })
 })
 
+app.get('/places', async (req, res) => {
+  res.json(await Listing.find())
+})
+
 app.listen(4000)
