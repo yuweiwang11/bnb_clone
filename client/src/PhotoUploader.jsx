@@ -37,8 +37,16 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
       })
   }
 
-  function removePhoto(filename) {
+  function removePhoto(e, filename) {
+    e.preventDefault()
+
     onChange([...addedPhotos.filter((photo) => photo !== filename)])
+  }
+
+  function selectAsMainPhoto(e, filename) {
+    e.preventDefault()
+
+    onChange([filename, ...addedPhotos.filter((photo) => photo !== filename)])
   }
   return (
     <>
@@ -69,10 +77,17 @@ export default function PhotoUploader({ addedPhotos, onChange }) {
                 alt="link"
               />
               <button
-                onClick={() => removePhoto(link)}
+                onClick={(e) => removePhoto(e, link)}
                 className="cursor-pointer absolute bottom-1 right-1 text-white bg-black bg-opacity-50 p-1 rounded-xl"
               >
                 X
+              </button>
+              <button
+                onClick={(e) => selectAsMainPhoto(e, link)}
+                className="cursor-pointer absolute bottom-1 left-1 text-white bg-black bg-opacity-50 p-1 rounded-xl"
+              >
+                {link === addedPhotos[0] && <p>★</p>}
+                {link !== addedPhotos[0] && <p>☆</p>}
               </button>
             </div>
           ))}
