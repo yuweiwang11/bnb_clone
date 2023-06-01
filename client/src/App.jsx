@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage'
 import ListingsPage from './pages/ListingsPage'
 import axios from 'axios'
 import ListingFormPage from './pages/ListingFormPage'
+import PlacePage from './pages/PlacePage'
 
 //connecting to api
 axios.defaults.baseURL = 'http://localhost:4000'
@@ -28,6 +29,7 @@ function App() {
             <Route path="/account/listings" element={<ListingsPage />} />
             <Route path="/account/listings/new" element={<ListingFormPage />} />
             <Route path="/account/listings/:id" element={<ListingFormPage />} />
+            <Route path="/listings/:id" element={<PlacePage />} />
           </Route>
         </Routes>
       </UserContextProvider>
