@@ -16,6 +16,7 @@ function ListingFormPage() {
   const [checkIn, setChckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')
   const [maxGuests, setMaxGuests] = useState(1)
+  const [price, setPrice] = useState(100)
   const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
@@ -33,6 +34,7 @@ function ListingFormPage() {
         setChckIn(data.checkIn)
         setCheckOut(data.checkOut)
         setMaxGuests(data.maxGuests)
+        setPrice(data.price)
       })
     }
   }, [id])
@@ -67,6 +69,7 @@ function ListingFormPage() {
       checkIn,
       checkOut,
       maxGuests,
+      price,
     }
     if (id) {
       //update
@@ -123,7 +126,7 @@ function ListingFormPage() {
 
         {preInput('Check-in/out time & Maximum guests', '')}
 
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
           <div>
             <h3 className="mt-2 mb-1">Check-in time</h3>
             <input
@@ -155,6 +158,17 @@ function ListingFormPage() {
               }}
               type="number"
               placeholder="3"
+            />
+          </div>
+          <div>
+            <h3 className="mt-2 mb-1">Price per night</h3>
+            <input
+              value={price}
+              onChange={(e) => {
+                setPrice(e.target.value)
+              }}
+              type="number"
+              placeholder=""
             />
           </div>
         </div>

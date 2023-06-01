@@ -141,6 +141,7 @@ app.post('/listings', (req, res) => {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -156,6 +157,7 @@ app.post('/listings', (req, res) => {
       checkIn,
       checkOut,
       maxGuests,
+      price,
     })
     res.json(listingDoc)
   })
@@ -189,6 +191,7 @@ app.put('/listings', async (req, res) => {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err
@@ -204,6 +207,7 @@ app.put('/listings', async (req, res) => {
         checkIn,
         checkOut,
         maxGuests,
+        price,
       })
       await listingDoc.save()
       res.json('ok')

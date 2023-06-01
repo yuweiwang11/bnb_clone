@@ -21,8 +21,11 @@ function IndexPage() {
                 />
               )}
             </div>
-            <h2 className="text-sm truncate leading-4">{listing.title}</h2>
-            <h3 className="font-bold">{listing.address}</h3>
+            <h2 className=" font-bold">{listing.title}</h2>
+            <h3 className="text-sm text-gray-500">{listing.address}</h3>
+            <div className="mt-1">
+              <span className="font-bold">${listing.price}NZD</span> per night
+            </div>
           </div>
         ))}
     </div>
