@@ -18,23 +18,30 @@ function PlacePage() {
       })
     }
   }, [id])
-  if (!place) return ''
+  // if (!place) return ''
   if (showAllPhotos) {
     return (
-      <div className="fixd bg-white min-h-screen">
-        <div className="p-8 grid gap-4">
+      <div className="absolute inset-0 bg-black text-white min-h-screen">
+        <div className="bg-black p-8 grid gap-4">
           <div>
             <h2 className="text-2xl">photos of {place.title}</h2>
-            <button className="flex right-12 top-8 gap-1 py-2 px-4 rounded-2xl bg-gray-300 shadow shadow-black">
+            <h3>{place.address}</h3>
+            {place.photos?.length > 0 &&
+              place.photos.map((pic) => (
+                <div key={place.titile} className="">
+                  <img src={'http://localhost:4000/uploads/' + pic} alt={pic} />
+                </div>
+
+                // console.log(showAllPhotos)
+                // console.log('http://localhost:4000/uploads/' + pic)
+              ))}
+            <button
+              onClick={() => setShowAllPhotos(false)}
+              className="fixed left-24 top-40 gap-1 py-2 px-4 rounded-2xl bg-gray-300 shadow shadow-black bg-white text-black"
+            >
               Close X
             </button>
           </div>
-          {place.photos?.length > 0 &&
-            place.photos.map((pic) => {
-              ;<div>
-                <img src={'http://localhost:4000/updates/' + pic} alt={pic} />
-              </div>
-            })}
         </div>
       </div>
     )
@@ -85,7 +92,7 @@ function PlacePage() {
           </div>
           <button
             onClick={() => setShowAllPhotos(true)}
-            className="flex gap-1 absolute bottom-2 right-8 py-2 px-4 bg-white rounded-2xl shadow shadow-gray-500"
+            className="flex gap-1 absolute bottom-2 right-8 py-2 px-4 bg-white rounded-2xl"
           >
             show more photos
           </button>
