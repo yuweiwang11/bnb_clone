@@ -25,24 +25,21 @@ function PlacePage() {
       <div className="absolute inset-0 bg-black text-white min-h-screen">
         <div className="bg-black p-8 grid gap-4">
           <div>
-            <h2 className="text-2xl">photos of {place.title}</h2>
-            <h3>{place.address}</h3>
-            {place.photos?.length > 0 &&
-              place.photos.map((pic) => (
-                <div key={place.titile} className="">
-                  <img src={'http://localhost:4000/uploads/' + pic} alt={pic} />
-                </div>
+            <h2 className="text-3xl mr-48">photos of {place.title}</h2>
 
-                // console.log(showAllPhotos)
-                // console.log('http://localhost:4000/uploads/' + pic)
-              ))}
             <button
               onClick={() => setShowAllPhotos(false)}
-              className="fixed left-24 top-40 gap-1 py-2 px-4 rounded-2xl bg-gray-300 shadow shadow-black bg-white text-black"
+              className="fixed left-20 top-28 gap-1 py-2 px-4 rounded-2xl shadow shadow-black bg-white text-black"
             >
               Close X
             </button>
           </div>
+          {place.photos?.length > 0 &&
+            place.photos.map((pic) => (
+              <div key={place.titile} className="">
+                <img src={'http://localhost:4000/uploads/' + pic} alt={pic} />
+              </div>
+            ))}
         </div>
       </div>
     )
@@ -50,7 +47,7 @@ function PlacePage() {
 
   return (
     <>
-      <div className="mt-8 bg-gray-100 -m-8 px-8 py-8">
+      <div className="mt-8 bg-gray-100 -m-8 px-8 pt-8">
         <h1 className="text-3xl">{place.title}</h1>
         <a
           className="flex gap-1 my-3 block font-semibold underline"
@@ -66,7 +63,8 @@ function PlacePage() {
               {place.photos?.[0] && (
                 <div>
                   <img
-                    className="aspect-square object-cover"
+                    onClick={() => setShowAllPhotos(true)}
+                    className="aspect-square object-cover cursor-pointer"
                     src={'http://localhost:4000/uploads/' + place.photos[0]}
                     alt={place.title}
                   />
@@ -76,7 +74,8 @@ function PlacePage() {
             <div className="grid">
               {place.photos?.[1] && (
                 <img
-                  className="aspect-square object-cover"
+                  onClick={() => setShowAllPhotos(true)}
+                  className="aspect-square object-cover cursor-pointer"
                   src={'http://localhost:4000/uploads/' + place.photos[1]}
                   alt={place.title}
                 />
@@ -84,7 +83,8 @@ function PlacePage() {
               <div className="overflow-hidden">
                 {place.photos?.[2] && (
                   <img
-                    className="aspect-square object-cover relative top-2"
+                    onClick={() => setShowAllPhotos(true)}
+                    className="aspect-square object-cover relative top-2 cursor-pointer"
                     src={'http://localhost:4000/uploads/' + place.photos[2]}
                     alt={place.title}
                   />
@@ -99,8 +99,7 @@ function PlacePage() {
             show more photos
           </button>
         </div>
-
-        <div className="mt-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
+        <div className="mt-8 mb-4 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
           <div>
             <div className="my-4">
               <h2 className="font-semibold text-2xl">Description</h2>
@@ -114,6 +113,14 @@ function PlacePage() {
           </div>
           <div>
             <BookingWidget place={place} />
+          </div>
+        </div>
+        <div className="bg-white -mx-8 px-8 py-8 border-t">
+          <div>
+            <h2 className="font-semibold text-2xl">Extra info</h2>
+          </div>
+          <div className="mb-4 mt-2 text-sm text-gray-700 leading-5 ">
+            {place.extraInfo}
           </div>
         </div>
       </div>
