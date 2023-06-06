@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import BookingWidget from './BookingWidget'
 
 function PlacePage() {
   const { id } = useParams()
@@ -46,12 +47,13 @@ function PlacePage() {
       </div>
     )
   }
+
   return (
     <>
       <div className="mt-8 bg-gray-100 -m-8 px-8 py-8">
         <h1 className="text-3xl">{place.title}</h1>
         <a
-          className="my-2 block font-semibold underline"
+          className="flex gap-1 my-3 block font-semibold underline"
           target="_blank"
           href={'https://maps.google.com/?q=' + place.address}
           rel="noreferrer"
@@ -59,7 +61,7 @@ function PlacePage() {
           {place.address}
         </a>
         <div className="realative">
-          <div className="grid gap-2 grid-cols-[2fr_1fr]">
+          <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl overflow-hidden">
             <div>
               {place.photos?.[0] && (
                 <div>
@@ -96,6 +98,23 @@ function PlacePage() {
           >
             show more photos
           </button>
+        </div>
+
+        <div className="mt-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
+          <div>
+            <div className="my-4">
+              <h2 className="font-semibold text-2xl">Description</h2>
+              {place.description}
+            </div>
+            Check-in: {place.checkIn}
+            <br />
+            Check-out: {place.checkOut}
+            <br />
+            Max Guests: {place.maxGuests}
+          </div>
+          <div>
+            <BookingWidget place={place} />
+          </div>
         </div>
       </div>
     </>
