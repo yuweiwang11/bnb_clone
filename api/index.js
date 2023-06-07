@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 // User model
 const User = require('./models/users.js')
 const Listing = require('./models/listing.js')
+const Booking = require('./models/booking.js')
 const bcrypt = require('bcryptjs')
 // json web token
 const jwt = require('jsonwebtoken')
@@ -217,6 +218,26 @@ app.put('/listings', async (req, res) => {
 
 app.get('/places', async (req, res) => {
   res.json(await Listing.find())
+})
+
+app.post('/bookings', (req, res) => {
+  const { place, checkIn, checkOut, numberOfGuests, name, mobile, price } =
+    req.body
+  Booking.create({
+    place,
+    checkIn,
+    checkOut,
+    numberOfGuests,
+    name,
+    mobile,
+    price,
+  })
+    .then((doc) => {
+      if (err) res.json(doc)
+    })
+    .catch((err) => {
+      throw err
+    })
 })
 
 app.listen(4000)

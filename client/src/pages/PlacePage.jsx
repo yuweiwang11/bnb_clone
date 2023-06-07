@@ -120,7 +120,7 @@ function PlacePage() {
             <h2 className="font-semibold text-2xl">Extra info</h2>
           </div>
           <div className="mb-4 mt-2 text-sm text-gray-700 leading-5 ">
-            {place.extraInfo}
+            {place.exteaInfo}
           </div>
         </div>
       </div>
