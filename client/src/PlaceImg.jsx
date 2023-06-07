@@ -10,7 +10,6 @@ function PlaceImg({ listing, index = 0, className = null }) {
     <img
       className={className}
       src={`http://localhost:4000/uploads/${listing.photos[index]}`}
-      alt={listing.title}
     />
   )
 }
